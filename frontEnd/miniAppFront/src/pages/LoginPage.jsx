@@ -9,7 +9,7 @@ const LoginPage = () => {
         style={{backgroundImage:"url('images/sverige43.jpg')"}}>
             <Header />
             <main className="main-content">
-
+    {/* items */}
             </main>
 
         </div>
