@@ -1,0 +1,21 @@
+
+
+*{
+margin:0   
+}
+.login-page{
+    min-height:100vh;
+    width:100%;
+    
+}
+
+
+.hero-section{
+    min-height:100vh;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+}

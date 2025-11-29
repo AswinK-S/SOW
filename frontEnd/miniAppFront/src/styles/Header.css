@@ -1,0 +1,343 @@
+.header {
+    position: relative;
+    z-index: 10;
+    padding: 20px 0;
+    background: transparent;
+
+    ;
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    position: relative;
+}
+
+.hamburger-button {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+.hamburger-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    flex-shrink: 0;
+}
+
+.logo-image {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    flex: 1;
+    justify-content: center;
+
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: black;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5)
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.language-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.language-selector:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.Language-text {
+    color: white;
+    font-size: 15px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 500;
+}
+
+.flag-icon {
+    height: 20px;
+    width: 28px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+
+
+
+/* Responsive Styles */
+@media(max-width:1023px)and(min-width:768px) {
+    .header-container {
+        padding: 0 30px;
+        gap: 20px;
+    }
+
+    .hamburger-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+
+
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .nav-menu {
+        /* gap: 25px; */
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: white;
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
+    }
+
+    .nav-menu.open {
+        max-height: 400px;
+        opacity: 1;
+        padding: 20px;
+    }
+
+    .nav-link {
+        font-size: 15px;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 500;
+        color: black;
+
+    }
+
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+
+    .logo-image {
+        height: 35px;
+    }
+
+    .language-selector {
+        margin-left: auto;
+    }
+}
+
+@media(max-width:767px)and(min-width:568px) {
+    .header-container {
+        padding: 0 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+        display: flex;
+        flex-direction: row;
+
+    }
+
+    .hamburger-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        position: relative;
+        left: 0;
+        margin-right: auto;
+        top: 10px;
+
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 75px;
+        left: 10%;
+        right: auto;
+        width: 70%;
+        flex-direction: column;
+        gap: 0;
+        background: white;
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
+    }
+
+    .nav-menu-open {
+        max-height: 400px;
+        opacity: 1;
+        padding: 20px;
+    }
+
+    .nav-link {
+        font-size: 14px;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 500;
+        color: black;
+
+    }
+
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+
+    .logo-image {
+        height: 32px;
+    }
+
+    .language-selector {
+        margin-left: auto;
+    }
+
+    .language-text {
+        font-size: 14px;
+        color: white;
+        font-family: "Open Sans", sans-serif;
+
+    }
+
+    .flag-icon {
+        height: 18px;
+        width: 25px;
+    }
+}
+
+/*Phone Portrait*/
+@media(max-width:567px) {
+
+
+    .header-container {
+        padding: 0 15px;
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .hamburger-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        left: 0;
+        top: 30;
+        margin-right: auto;
+    }
+
+
+    .logo {
+        display: none;
+    }
+
+    .language-selector {
+        order: 2;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: 10%;
+        right: auto;
+        width: 70%;
+        flex-direction: column;
+        gap: 0;
+        background: white;
+        backdrop-filter: blur(10px);
+        padding: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
+    }
+
+    .nav-menu-open {
+        max-height: 400px;
+        opacity: 1;
+        padding: 15px;
+    }
+
+    .nav-link {
+        font-size: 14px;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 500;
+        color: black;
+
+    }
+
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+
+
+    .logo-image {
+        height: 30px;
+    }
+
+    .language-text {
+        font-size: 14px;
+        color: white;
+        font-family: "Open Sans", sans-serif;
+    }
+
+    .flag-icon {
+        height: 18px;
+        width: 25px;
+    }
+
+    .language-selector {
+        margin-left: auto;
+    }
+}
