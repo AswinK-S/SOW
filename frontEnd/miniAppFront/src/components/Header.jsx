@@ -7,18 +7,31 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = ['Home', 'Order', 'Our Customers', 'About us', 'Contact Us'];
+  const [isOpen, setIsOpen] = useState(false)
+
+  const languages = [
+    { code: "SE", label: "Svenska", flag: "/images/SE.png" },
+    { code: "EN", label: "English", flag: "/images/GB.png" }
+  ]
+
+  const [selectedLang, setSelectedLang] = useState(languages[0])
 
   const handleLinkClick = (item) => {
     setActiveLink(item);
     setIsMenuOpen(false);
   };
 
+  const handleSelect = (lang) => {
+    setSelectedLang(lang)
+    setIsOpen(false)
+  }
+
   return (
     <header className="header">
       <div className="header-container">
 
         {/* Hamburger Button */}
-        <button 
+        <button
           className="hamburger-button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
@@ -28,7 +41,7 @@ const Header = () => {
 
         {/* Logo */}
         <div className="logo">
-          <img 
+          <img
             src="/images/diamond.png"
             alt="Logo"
             className="logo-image"
@@ -50,13 +63,40 @@ const Header = () => {
         </nav>
 
         {/* Language Selector */}
-        <div className="language-selector">
+        {/* <div className="language-selector">
           <span className="language-text">English</span>
           <img 
             src="/images/GB.png"
             alt="English"
             className="flag-icon"
           />
+        </div> */}
+
+        <div className="language-selector">
+
+          <button
+            className="language-trigger"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <span className="language-text">{selectedLang.label}</span>
+            <img src={selectedLang.flag} alt={selectedLang.label} className="flag-icon" />
+          </button>
+
+          {isOpen && (
+            <div className="language-dropdown">
+              {languages.map(lang => (
+                <div
+                  key={lang.code}
+                  className="language-option"
+                  onClick={() => handleSelect(lang)}
+                >
+                  <span>{lang.label}</span>
+                  <img src={lang.flag} className="flag-icon" alt={lang.label} />
+                </div>
+              ))}
+            </div>
+          )}
+
         </div>
 
       </div>

@@ -65,7 +65,7 @@
 
 .nav-link:hover,
 .nav-link.active {
-    color: black;
+    /* color: black; */
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.5)
 }
 
@@ -88,13 +88,24 @@
     padding: 8px 12px;
     border-radius: 6px;
     transition: background-color 0.3s ease;
+    position: relative;
 }
 
 .language-selector:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.Language-text {
+.language-trigger{
+    background:transparent;
+    border:none;
+    display: flex;
+    align-items: center;
+    gap:6px;
+    cursor: pointer;
+    color:white;
+}
+
+.language-text {
     color: white;
     font-size: 15px;
     font-family: "Open Sans", sans-serif;
@@ -102,13 +113,30 @@
 }
 
 .flag-icon {
-    height: 20px;
+    height: auto;
     width: 28px;
     object-fit: cover;
     border-radius: 2px;
 }
 
+.language-dropdown{
+    position:absolute;
+    top: 40px;
+    right:0;
+    background:white;
+    border-radius: 6px;
+    width: 150px;
+    padding: 10px;
+    z-index:20;
+}
 
+.language-option{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    padding: 8px 12px;
+    cursor:pointer;
+}
 
 
 /* Responsive Styles */
@@ -159,7 +187,7 @@
         font-size: 15px;
         font-family: "Open Sans", sans-serif;
         font-weight: 500;
-        color: black;
+        /* color: black; */
 
     }
 
@@ -174,6 +202,7 @@
     .language-selector {
         margin-left: auto;
     }
+
 }
 
 @media(max-width:767px)and(min-width:568px) {
@@ -226,7 +255,7 @@
         font-size: 14px;
         font-family: "Open Sans", sans-serif;
         font-weight: 500;
-        color: black;
+        /* color: black; */
 
     }
 
@@ -240,6 +269,8 @@
 
     .language-selector {
         margin-left: auto;
+        position: relative;
+
     }
 
     .language-text {
@@ -313,7 +344,7 @@
         font-size: 14px;
         font-family: "Open Sans", sans-serif;
         font-weight: 500;
-        color: black;
+        /* color: black; */
 
     }
 
@@ -339,5 +370,7 @@
 
     .language-selector {
         margin-left: auto;
+        position: relative;
+
     }
 }
