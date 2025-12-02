@@ -1,25 +1,53 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import '../styles/LoginCard.css'
-import {Eye, EyeOff} from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
+import useTranslations from '../hooks/useTranslations'
 
-const LoginCard = () => {
-     
+const LoginCard = ({ selectedLang }) => {
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [showPassword, setShowPassword] =useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
-    const handleSubmit = (e) =>{
+    const translations = useTranslations(selectedLang);
+
+
+    if (!translations) return null;
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Login submitted:', {email, password})
+
+        try {
+            const res = await fetch("http://localhost:5000/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert(data.message || "Login failed");
+                return;
+            }
+
+            localStorage.setItem("token", data.token);
+            window.location.href = "/pricelist";
+        } catch (error) {
+            console.error("Login error:", error)
+        }
+
+        console.log('Login submitted:', { email, password })
     }
+
     return (
         <div className="login-card">
-            <h1 className="login-title">Log in</h1>
+            <h1 className="login-title">{translations["login.title"]}</h1>
 
             <form onSubmit={handleSubmit} className="login-form">
                 <div className="form-group">
                     <label htmlFor="email" className="form-label">
-                        Enter your email address
+                        {translations["login.email"]}
                     </label>
                     <input
                         type="email"
@@ -34,7 +62,7 @@ const LoginCard = () => {
 
                 <div className="form-group">
                     <label htmlFor="password" className="form-label">
-                        Enter your password
+                        {translations["login.password"]}
                     </label>
                     <div className="password-input-wrapper">
                         <input
@@ -43,13 +71,13 @@ const LoginCard = () => {
                             className="form-input"
                             placeholder="Password"
                             value={password}
-                            onChange={(e)=> setPassword(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                         />
                         <button
                             type="button"
                             className="password-toggle"
-                            onClick={()=>setShowPassword(!showPassword)}
+                            onClick={() => setShowPassword(!showPassword)}
                             aria-label={showPassword ? 'Hide password' : 'Show password'}
                         >
                             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -58,7 +86,7 @@ const LoginCard = () => {
 
                 </div>
                 <button type="submit" className="login-button">
-                Log in
+                    {translations["login.button"]}
                 </button>
 
                 <div className="login-footer">

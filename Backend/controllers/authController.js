@@ -8,6 +8,7 @@ export const loginUser = async(req, res) =>{
     const {email, password} = req.body;
 
     try {
+        console.log("login")
         const result = await pool.query("SELECT * FROM users WHERE email=$1",[email])
         const user = result.rows[0];
 
@@ -29,21 +30,23 @@ export const loginUser = async(req, res) =>{
     }
 }
 
-export const getTranslations = async (req, res) =>{
-    const {lang} = req.query;
+export const getTranslations = async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM translations");
+    const rows = result.rows;
 
-    try{
-        const result = await pool.query("SELECT * FROM translations")
-        const rows = result.rows;
+    const translated = {};
 
-        const translated ={}
+    rows.forEach(row => {
+      if (!translated[row.language_code]) translated[row.language_code] = {};
+      translated[row.language_code][row.key] = row.value;
+    });
 
-        rows.forEach(row =>{
-            translated[row.key] = row[lang] || row["en"]
-        })
+    res.json(translated);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error fetching translations" });
+  }
+};
 
-        res.json(translated)
-    }catch(err){
-        res.status(500).json({message:"Error fetching translations"})
-    }
-}
+

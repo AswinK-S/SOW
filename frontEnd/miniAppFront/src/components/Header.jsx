@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react'; // ✅ REQUIRED
+import { Menu, X } from 'lucide-react'; 
+import useTranslations from '../hooks/useTranslations';
 import '../styles/Header.css';
 
-const Header = () => {
+const Header = ({ selectedLang, setSelectedLang }) => {
   const [activeLink, setActiveLink] = useState('Home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const navItems = ['Home', 'Order', 'Our Customers', 'About us', 'Contact Us'];
   const [isOpen, setIsOpen] = useState(false)
 
   const languages = [
@@ -14,7 +13,18 @@ const Header = () => {
     { code: "EN", label: "English", flag: "/images/GB.png" }
   ]
 
-  const [selectedLang, setSelectedLang] = useState(languages[0])
+  const translations = useTranslations(selectedLang.code);
+
+  if (!translations) return null;
+
+  const navItems = [
+    translations['header.home'],
+    translations['header.order'],
+    translations['header.customers'],
+    translations['header.about'],
+    translations['header.contact']
+  ];
+
 
   const handleLinkClick = (item) => {
     setActiveLink(item);
@@ -22,6 +32,7 @@ const Header = () => {
   };
 
   const handleSelect = (lang) => {
+    console.log('lang')
     setSelectedLang(lang)
     setIsOpen(false)
   }
@@ -61,16 +72,6 @@ const Header = () => {
             </a>
           ))}
         </nav>
-
-        {/* Language Selector */}
-        {/* <div className="language-selector">
-          <span className="language-text">English</span>
-          <img 
-            src="/images/GB.png"
-            alt="English"
-            className="flag-icon"
-          />
-        </div> */}
 
         <div className="language-selector">
 
