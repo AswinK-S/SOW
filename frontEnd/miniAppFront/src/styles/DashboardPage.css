@@ -1,0 +1,42 @@
+.dashboard-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+}
+
+.dashboard-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.dashboard-main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  background-color: #f8fafc;
+}
+
+/* Responsive breakpoints */
+
+/* Tablet (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .dashboard-main {
+    padding: 25px;
+  }
+}
+
+/* Phone Landscape (568px - 767px) */
+@media (max-width: 767px) and (min-width: 568px) {
+  .dashboard-main {
+    padding: 20px 15px;
+  }
+}
+
+/* Phone Portrait (<568px) */
+@media (max-width: 567px) {
+  .dashboard-main {
+    padding: 15px 10px;
+  }
+}

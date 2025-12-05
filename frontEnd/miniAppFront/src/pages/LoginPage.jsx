@@ -7,9 +7,9 @@ import '../styles/LoginPage.css'
 const LoginPage = () => {
 
   const [selectedLang, setSelectedLang] = useState({
-    code: "EN",
-    label: "English",
-    flag: "/images/GB.png"
+    code: "SE",
+    label: "Svenska",
+    flag: "/images/SE.png"
   });
 
   return (
@@ -20,7 +20,7 @@ const LoginPage = () => {
         <main className="main-content">
           <LoginCard selectedLang={selectedLang.code} />
         </main>
-        <Footer />
+        <Footer selectedLang={selectedLang}/>
       </div>
     </div>
   )

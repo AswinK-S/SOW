@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react'
+import localTranslations from '../helper/localTransactions';
 
 const API_URL = "http://localhost:5000/api/auth/translations";
 
 
 const useTranslations = (selectedLang = "EN") => {
-  const [translations, setTranslations] = useState(null);
+  const [translations, setTranslations] = useState(localTranslations[selectedLang]);
 
   useEffect(() => {
     const fetchTranslations = async () => {
       try {
         const res = await fetch(`http://localhost:5000/api/auth/translations`);
         const data = await res.json();
+        console.log('ooo:', data[selectedLang])
 
-        if (!data[selectedLang]) {
-          console.error(`Key not found in returned data: ${selectedLang}`);
-          setTranslations({});
+        if (data[selectedLang]) {
+          setTranslations(data[selectedLang]); // ✅ backend overrides local
         } else {
-          setTranslations(data[selectedLang]);
+          console.warn("Backend missing key, using local fallback");
+          setTranslations(localTranslations[selectedLang]);
         }
-      } catch (error) {
-        console.error("Translation fetch failed", error);
+      } catch (err) {
+        console.warn("Backend offline → using local translations");
+        console.log(err.message)
+        setTranslations(localTranslations[selectedLang]); // ✅ fallback
       }
     };
 

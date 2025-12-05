@@ -1,106 +1,107 @@
-import React, { useState } from 'react'
-import '../styles/LoginCard.css'
-import { Eye, EyeOff } from 'lucide-react'
-import useTranslations from '../hooks/useTranslations'
+import React, { useState } from "react";
+import "../styles/LoginCard.css";
+import { Eye, EyeOff } from "lucide-react";
+import useTranslations from "../hooks/useTranslations";
+import { useNavigate } from "react-router-dom";
 
 const LoginCard = ({ selectedLang }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [showPassword, setShowPassword] = useState(false)
+  const translations = useTranslations(selectedLang);
+  const navigate = useNavigate();
 
-    const translations = useTranslations(selectedLang);
+  if (!translations) return null;
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if (!translations) return null;
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+      const data = await res.json();
+      console.log("data :",data)
 
-        try {
-            const res = await fetch("http://localhost:5000/api/auth/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
-            });
+      if (!res.ok) {
+        alert(data.message || "Login failed");
+        return;
+      }
 
-            const data = await res.json();
-
-            if (!res.ok) {
-                alert(data.message || "Login failed");
-                return;
-            }
-
-            localStorage.setItem("token", data.token);
-            window.location.href = "/pricelist";
-        } catch (error) {
-            console.error("Login error:", error)
-        }
-
-        console.log('Login submitted:', { email, password })
+      localStorage.setItem("token", data.token);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Login error:", error);
     }
 
-    return (
-        <div className="login-card">
-            <h1 className="login-title">{translations["login.title"]}</h1>
+   
 
-            <form onSubmit={handleSubmit} className="login-form">
-                <div className="form-group">
-                    <label htmlFor="email" className="form-label">
-                        {translations["login.email"]}
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        className="form-input"
-                        placeholder="Email address"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
+    console.log("Login submitted:", { email, password });
+  };
 
-                <div className="form-group">
-                    <label htmlFor="password" className="form-label">
-                        {translations["login.password"]}
-                    </label>
-                    <div className="password-input-wrapper">
-                        <input
-                            type={showPassword ? "text" : "password"}
-                            id="password"
-                            className="form-input"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                        <button
-                            type="button"
-                            className="password-toggle"
-                            onClick={() => setShowPassword(!showPassword)}
-                            aria-label={showPassword ? 'Hide password' : 'Show password'}
-                        >
-                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                        </button>
-                    </div>
+  return (
+    <div className="login-card">
+      <h1 className="login-title">{translations["login.title"]}</h1>
 
-                </div>
-                <button type="submit" className="login-button">
-                    {translations["login.button"]}
-                </button>
+      <form onSubmit={handleSubmit} className="login-form">
+        <div className="form-group">
+          <label htmlFor="email" className="form-label">
+            {translations["login.email"]}
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="form-input"
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
 
-                <div className="login-footer">
-                    <a href="#register" className="footer-link">
-                        Register
-                    </a>
-                    <a href="#forgot-password" className="footer-link">
-                        Forgotten password?
-                    </a>
-                </div>
+        <div className="form-group">
+          <label htmlFor="password" className="form-label">
+            {translations["login.password"]}
+          </label>
+          <div className="password-input-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              className="form-input"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              className="password-toggle"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
+        </div>
+        <button type="submit" className="login-button">
+          {translations["login.button"]}
+        </button>
 
-            </form >
-        </div >
-    )
-}
+        <div className="login-footer">
+          <a href="#register" className="footer-link">
+            Register
+          </a>
+          <a href="#forgot-password" className="footer-link">
+            Forgotten password?
+          </a>
+        </div>
+      </form>
+    </div>
+  );
+};
 
-export default LoginCard
+export default LoginCard;

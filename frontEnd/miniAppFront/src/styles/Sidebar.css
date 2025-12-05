@@ -1,0 +1,180 @@
+.sidebar {
+  width: 240px;
+  background-color: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 90px);
+  overflow-y: auto;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-title {
+  color: #64748b;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-close {
+  display: none;
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-close:hover {
+  background-color: #f1f5f9;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #475569;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-item:hover {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+.sidebar-item-active {
+  background-color: #fef3c7;
+  color: #1e293b;
+  border-left-color: #fbbf24;
+}
+
+.sidebar-item-label {
+  flex: 1;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay-visible {
+  display: block;
+  opacity: 1;
+}
+
+/* Tablet (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 86px;
+    height: calc(100vh - 86px);
+    z-index: 100;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-close {
+    display: flex;
+  }
+}
+
+/* Phone Landscape (568px - 767px) */
+@media (max-width: 767px) and (min-width: 568px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 72px;
+    height: calc(100vh - 72px);
+    z-index: 100;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    width: 220px;
+  }
+
+  .sidebar-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-close {
+    display: flex;
+  }
+
+  .sidebar-item {
+    padding: 11px 18px;
+    font-size: 14px;
+  }
+}
+
+/* Phone Portrait (<568px) */
+@media (max-width: 567px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 62px;
+    height: calc(100vh - 62px);
+    z-index: 100;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    max-width: 80vw;
+  }
+
+  .sidebar-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-close {
+    display: flex;
+  }
+
+  .sidebar-header {
+    padding: 15px;
+  }
+
+  .sidebar-title {
+    font-size: 14px;
+  }
+
+  .sidebar-item {
+    padding: 10px 15px;
+    font-size: 14px;
+    gap: 10px;
+  }
+}
