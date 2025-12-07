@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { Search, Plus, Printer, Settings, MoreHorizontal, ArrowRight } from 'lucide-react';
 import '../styles/ProductTable.css';
+import { API } from '../config/api';
 
 const ProductTable = () => {
    const [searchArticle, setSearchArticle] = useState('');
@@ -13,7 +14,7 @@ const ProductTable = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:5000/api/pricelist", {
+        const res = await fetch(`${API}/pricelist`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

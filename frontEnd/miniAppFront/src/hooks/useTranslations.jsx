@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import localTranslations from '../helper/localTransactions';
+import { API } from '../config/api';
 
 const API_URL = "http://localhost:5000/api/auth/translations";
 
@@ -10,7 +11,7 @@ const useTranslations = (selectedLang = "EN") => {
   useEffect(() => {
     const fetchTranslations = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/auth/translations`);
+        const res = await fetch(`${API}/auth/translations`);
         const data = await res.json();
         console.log('ooo:', data[selectedLang])
 

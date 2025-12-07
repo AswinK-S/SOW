@@ -3,6 +3,7 @@ import "../styles/LoginCard.css";
 import { Eye, EyeOff } from "lucide-react";
 import useTranslations from "../hooks/useTranslations";
 import { useNavigate } from "react-router-dom";
+import { API } from "../config/api";
 
 const LoginCard = ({ selectedLang }) => {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ const LoginCard = ({ selectedLang }) => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch(`${API}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
